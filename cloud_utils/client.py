@@ -17,14 +17,14 @@ class Client:
 
     compute: compute.Compute
 
-    """
-    Creates a cloud-agnostic CloudUtils Client
-    @:parameter location
-    @:parameter platform
-    @:parameter aws_profile
-    @:parameter gcp_project
-    """
     def __init__(self, location, platform, aws_profile=None, gcp_project=None):
+        """
+        Creates a cloud-agnostic CloudUtils Client
+        @:parameter location
+        @:parameter platform
+        @:parameter aws_profile
+        @:parameter gcp_project
+        """
         self.location = location
         self.platform = platform
 
