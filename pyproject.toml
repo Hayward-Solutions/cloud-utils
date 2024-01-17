@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "cloud-utils"
 version = "0.0.0"
-description = "Unified interface for interacticing with AWS and GCP"
+description = "A single interface for interacting with multiple cloud platforms."
 authors = ["Matt Hayward <mhayward122@gmail.com>"]
 readme = "README.md"
 
