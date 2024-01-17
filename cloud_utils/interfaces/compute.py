@@ -7,16 +7,27 @@ from cloud_utils.cloud_clients.gcp import GCP
 
 
 class Compute:
+    """
+    Describes a cloud-agnostic interface to interact with Compute APIs across multiple cloud providers.
+    """
     aws_client: AWS
     gcp_client: GCP
 
     def __init__(self,
                  aws_client: AWS = None,
                  gcp_client: GCP = None):
+        """
+        @:param aws_client
+        @:param gcp_client
+        """
         self.aws_client = aws_client
         self.gcp_client = gcp_client
 
     def groups(self, group_name: str = None) -> list[InstanceGroup]:
+        """
+        :param group_name: Optional. Name of a specific group to return
+        :return: List of cloud-agnostic InstanceGroups
+        """
         groups = []
         if self.aws_client:
             try:
@@ -32,6 +43,11 @@ class Compute:
         return groups
 
     def instances(self, group_name: str = None, identifier: str = None) -> list[Instance]:
+        """
+        :param group_name: Optional. Name of a specific group to return
+        :param identifier: Optional. Name of a specific Instance to return
+        :return: List of cloud-agnostic Instances
+        """
         instances = []
         if self.aws_client:
             try:
@@ -51,4 +67,9 @@ class Compute:
         return instances
 
     def scale(self, group_name: str, size: int):
+        """
+        :param group_name: Name of the Group to scale
+        :param size: Desired size of the InstanceGroup
+        :return: None
+        """
         pass

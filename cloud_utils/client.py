@@ -6,6 +6,9 @@ from cloud_utils.interfaces import compute
 
 
 class Client:
+    """
+    Describes a single client to interact with environments distributed across multiple cloud providers.
+    """
     location: str
     platform: str
 
@@ -14,6 +17,13 @@ class Client:
 
     compute: compute.Compute
 
+    """
+    Creates a cloud-agnostic CloudUtils Client
+    @:parameter location
+    @:parameter platform
+    @:parameter aws_profile
+    @:parameter gcp_project
+    """
     def __init__(self, location, platform, aws_profile=None, gcp_project=None):
         self.location = location
         self.platform = platform

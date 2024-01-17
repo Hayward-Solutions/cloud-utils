@@ -1,5 +1,8 @@
 
 class Instance:
+    """
+    Describes a cloud-agnostic Instance of a Virtual Machine
+    """
     platform: str
     instance_group: str
     identifier: str
@@ -30,6 +33,10 @@ class Instance:
 
 
 class InstanceGroup:
+    """
+    Describes a cloud-agnostic Instance of a Group of Instances.
+    This could be an AWS AutoScaling Group or GCP Managed Instance Group
+    """
     name: str
     platform: str
     size: int
