@@ -1,3 +1,4 @@
 .venv
 dist
-cloud_utils/*/__pychache__
+__pycache__
+
