@@ -13,7 +13,7 @@ build:
     - poetry install
     - poetry build
     - poetry config certificates.gitlab.cert false
-    - poetry publish --repository gitlab --username __token__ --password $CI_JOB_TOKEN
+    - poetry publish -v --repository gitlab --username __token__ --password $CI_JOB_TOKEN
   only:
   - tags
   except:
