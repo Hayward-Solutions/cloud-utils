@@ -67,5 +67,8 @@ class GCP:
 
         return vms
 
-    def scale(self):
-        pass
+    def scale(self, group_name: str, size: int):
+        compute_client = compute.RegionInstanceGroupManagersClient()
+        compute_client.resize(
+            project=self.project, region=self.region, instance_group_manager=group_name, size=size
+        )

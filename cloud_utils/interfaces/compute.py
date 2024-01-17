@@ -72,4 +72,14 @@ class Compute:
         :param size: Desired size of the InstanceGroup
         :return: None
         """
-        pass
+        if self.aws_client:
+            try:
+                self.aws_client.scale(group_name=group_name, size=size)
+            except botocore.exceptions.ClientError:
+                raise
+
+        if self.gcp_client:
+            try:
+                self.gcp_client.scale(group_name=group_name, size=size)
+            except Exception:
+                raise
