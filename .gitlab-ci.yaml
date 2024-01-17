@@ -1,0 +1,34 @@
+image: alpine:latest
+
+stages:
+  - build
+  - publish
+
+build:
+  stage: build
+  image: python
+  before_script:
+    - pip3 install poetry
+  script:
+    - poetry version $CI_COMMIT_TAG
+    - poetry install
+    - poetry build
+  only:
+  - tags
+  except:
+  - branches
+  artifacts:
+    expire_in: 15m
+    paths:
+      - .dist/cloud_utils-$CI_COMMIT_TAG.tar.gz
+      - .dist/cloud_utils-$CI_COMMIT_TAG-py3-none-any.whl
+
+publish:
+  stage: publish
+  image: poetry
+  needs:
+    - build
+  before_script:
+    - pip3 install poetry
+  script:
+    - poetry publish --repository gitlab --username __token__ --password $CI_JOB_TOKEN
