@@ -13,25 +13,44 @@ class AWS:
                  profile: str = None,
                  session_token: str = None,
                  access_key: str = None,
-                 secret_key: str = None):
+                 secret_key: str = None,
+                 load_host_credentials: bool = False,
+                 role_arn: str = None):
 
         self.region = region
 
-        if profile:
-            self.session = boto3.session.Session(profile_name=profile, region_name=region)
-        elif session_token and access_key and secret_key:
-            self.session = self.boto_session(access_key, secret_key, session_token, region)
+        if load_host_credentials:
+            self.session = boto3.session.Session()
+        elif profile or all([access_key, secret_key, session_token]):
+            self.session = boto3.session.Session(
+                profile_name=profile,
+                region_name=region,
+                aws_access_key_id=access_key,
+                aws_secret_access_key=secret_key,
+                aws_session_token=session_token,
+            )
         else:
-            raise 'One of [profile] or [access_key, secret_key, session_token] must be provided.'
+            print('ERROR: Invalid client credentials options')
+            print('ERROR: Valid options are:')
+            print('ERROR:       [load_host_credentials] + Optional[role_arn]')
+            print('ERROR:       [profile] + Optional[role_arn]')
+            print('ERROR:       [access_key, secret_key, session_token] + Optional[role_arn]')
+            raise Exception
 
-    @staticmethod
-    def boto_session(access_key, secret_key, session_token, region):
-        return boto3.session.Session(
-            aws_session_token=session_token,
-            aws_access_key_id=access_key,
-            aws_secret_access_key=secret_key,
-            region_name=region
-        )
+        if role_arn:
+            try:
+                sts = self.session.client('sts')
+                credentials = sts.assume_role(RoleArn=role_arn, RoleSessionName='cloud-utils')['Credentials']
+            except botocore.exceptions.ClientError:
+                print(f'ERROR: Failed to assume role {role_arn}')
+                raise
+            else:
+                self.session = boto3.session.Session(
+                    aws_access_key_id=credentials['AccessKeyId'],
+                    aws_secret_access_key=credentials['SecretAccessKey'],
+                    aws_session_token=credentials['SessionToken'],
+                    region_name=region
+                )
 
     def boto_client(self, service: str):
         try:
