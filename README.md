@@ -5,8 +5,7 @@ Cloud-Utils aims to provide a single interface for interacting with multiple clo
 ## Getting Started
 
 ```commandline
-pip3 install cloud-utils
-pip install --trusted-host gitlab.devmagic.cloud --index-url https://gitlab.devmagic.cloud/api/v4/projects/6/packages/pypi/simple cloud-utils
+pip3 install --trusted-host gitlab.devmagic.cloud --index-url https://gitlab.devmagic.cloud/api/v4/projects/6/packages/pypi/simple cloud-utils
 ```
 
 ```python
