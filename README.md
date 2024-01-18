@@ -6,6 +6,7 @@ Cloud-Utils aims to provide a single interface for interacting with multiple clo
 
 ```commandline
 pip3 install cloud-utils
+pip install --trusted-host gitlab.devmagic.cloud --index-url https://gitlab.devmagic.cloud/api/v4/projects/6/packages/pypi/simple cloud-utils
 ```
 
 ```python
@@ -35,4 +36,21 @@ for asg in auto_scaling_groups:
     print(asg.size)
 ```
 
+# Build
 
+## Locally
+
+```commandline
+pip3 install poetry
+poetry install
+poetry build
+
+pip3 install .dist/cloud_utils-0.0.0.tar.gz
+```
+
+## Publish To Private registry
+
+```commandline
+git tag 0.0.0
+git push origin 0.0.0
+```
