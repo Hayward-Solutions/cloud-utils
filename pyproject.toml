@@ -6,7 +6,7 @@ authors = ["Matt Hayward <mhayward122@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.8"
 boto3 = "^1.34.20"
 google-cloud-compute = "^1.15.0"
 
