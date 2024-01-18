@@ -23,7 +23,7 @@ class Compute:
         self.aws_client = aws_client
         self.gcp_client = gcp_client
 
-    def groups(self, group_name: str = None) -> list[InstanceGroup]:
+    def groups(self, group_name: str = None) -> [InstanceGroup]:
         """
         :param group_name: Optional. Name of a specific group to return
         :return: List of cloud-agnostic InstanceGroups
@@ -42,7 +42,7 @@ class Compute:
 
         return groups
 
-    def instances(self, group_name: str = None, identifier: str = None) -> list[Instance]:
+    def instances(self, group_name: str = None, identifier: str = None) -> [Instance]:
         """
         :param group_name: Optional. Name of a specific group to return
         :param identifier: Optional. Name of a specific Instance to return

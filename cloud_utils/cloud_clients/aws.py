@@ -39,7 +39,7 @@ class AWS:
         except botocore.exceptions.ClientError:
             raise
 
-    def get_groups(self, group_name: str = None) -> list[InstanceGroup]:
+    def get_groups(self, group_name: str = None) -> [InstanceGroup]:
         autoscaling = self.boto_client('autoscaling')
         if group_name:
             response = autoscaling.describe_auto_scaling_groups(AutoScalingGroupNames=[group_name])
@@ -57,7 +57,7 @@ class AWS:
 
         return groups
 
-    def get_instances(self, group_name: str = None, identifier: str = None) -> list[Instance]:
+    def get_instances(self, group_name: str = None, identifier: str = None) -> [Instance]:
         if not identifier:
             instance_groups = self.get_groups(group_name=group_name)
 

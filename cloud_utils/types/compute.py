@@ -40,13 +40,13 @@ class InstanceGroup:
     name: str
     platform: str
     size: int
-    instance_ids: list[str]
+    instance_ids: [str]
 
     def __init__(self,
                  name: str,
                  platform: str,
                  size: int,
-                 instance_ids: list[str]):
+                 instance_ids: [str]):
         self.name = name
         self.platform = platform
         self.size = size

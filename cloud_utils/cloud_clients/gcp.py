@@ -12,7 +12,7 @@ class GCP:
         self.project = project
         self.region = region
 
-    def get_groups(self, group_name: str = None) -> list[InstanceGroup]:
+    def get_groups(self, group_name: str = None) -> [InstanceGroup]:
         compute_client = compute.RegionInstanceGroupsClient()
         instance_groups = compute_client.list(project=self.project, region=self.region)
         groups = []
@@ -28,7 +28,7 @@ class GCP:
                 ))
         return groups
 
-    def get_instances(self, group_name: str = None, identifier: str = None) -> list[Instance]:
+    def get_instances(self, group_name: str = None, identifier: str = None) -> [Instance]:
         def process_instance(gcp_instance) -> Instance:
             internal_ips = []
             external_ips = []
