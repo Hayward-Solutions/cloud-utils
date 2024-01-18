@@ -1,8 +1,8 @@
 
 from cloud_utils.static.locations import Locations
-from cloud_utils.cloud_clients import aws
-from cloud_utils.cloud_clients import gcp
+from cloud_utils.cloud_clients import aws, gcp
 from cloud_utils.interfaces import compute
+from cloud_utils.interfaces import dns
 
 
 class Client:
@@ -16,6 +16,7 @@ class Client:
     gcp = gcp.GCP
 
     compute: compute.Compute
+    dns: dns.DNS
 
     def __init__(self, location, platform,
                  aws_profile=None,
@@ -54,3 +55,4 @@ class Client:
             self.gcp = None
 
         self.compute = compute.Compute(aws_client=self.aws, gcp_client=self.gcp)
+        self.dns = dns.DNS(aws_client=self.aws, gcp_client=self.gcp)

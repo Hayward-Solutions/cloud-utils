@@ -2,8 +2,8 @@ import botocore.exceptions
 
 from cloud_utils.types.compute import Instance
 from cloud_utils.types.compute import InstanceGroup
-from cloud_utils.cloud_clients.aws import AWS
 from cloud_utils.cloud_clients.gcp import GCP
+from cloud_utils.cloud_clients.aws import AWS
 
 
 class Compute:
@@ -31,12 +31,12 @@ class Compute:
         groups = []
         if self.aws_client:
             try:
-                groups += self.aws_client.get_groups(group_name=group_name)
+                groups += self.aws_client.compute.get_groups(group_name=group_name)
             except botocore.exceptions.ClientError:
                 raise
         if self.gcp_client:
             try:
-                groups += self.gcp_client.get_groups(group_name=group_name)
+                groups += self.gcp_client.compute.get_groups(group_name=group_name)
             except Exception:
                 raise
 
@@ -51,14 +51,14 @@ class Compute:
         instances = []
         if self.aws_client:
             try:
-                instances = instances + self.aws_client.get_instances(
+                instances = instances + self.aws_client.compute.get_instances(
                     group_name=group_name, identifier=identifier
                 )
             except botocore.exceptions.ClientError:
                 raise
         if self.gcp_client:
             try:
-                instances = instances + self.gcp_client.get_instances(
+                instances = instances + self.gcp_client.compute.get_instances(
                     group_name=group_name, identifier=identifier
                 )
             except Exception:
