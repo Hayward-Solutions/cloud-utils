@@ -54,3 +54,11 @@ pip3 install .dist/cloud_utils-0.0.0.tar.gz
 git tag 0.0.0
 git push origin 0.0.0
 ```
+
+## Use Cloud-Utils in another Poetry Project
+
+```commandline
+poetry source add cloud-utils --priority explicit --repository https://gitlab.devmagic.cloud/api/v4/projects/6/packages/pypi/simple
+poetry config certificates.cloud-utils.cert false
+poetry add cloud-utils --source cloud-utils
+```
