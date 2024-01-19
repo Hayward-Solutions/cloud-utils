@@ -24,37 +24,37 @@ class DNS:
     def zones(self, zone_name: str = None) -> [Zone]:
         zones = []
         if self.aws_client:
-            zones.append(self.aws_client.dns.get_zones(zone_name=zone_name))
+            zones += self.aws_client.dns.get_zones(zone_name=zone_name)
 
         if self.gcp_client:
-            zones.append(self.gcp_client.dns.get_zones(zone_name=zone_name))
+            zones += self.gcp_client.dns.get_zones(zone_name=zone_name)
 
         return zones
 
     def records(self, zone_name: str) -> [Record]:
         records = []
         if self.aws_client:
-            records.append(self.aws_client.dns.get_records(zone_name=zone_name))
+            records += self.aws_client.dns.get_records(zone_name=zone_name)
 
         if self.gcp_client:
-            records.append(self.gcp_client.dns.get_records(zone_name=zone_name))
+            records += self.gcp_client.dns.get_records(zone_name=zone_name)
 
         return records
 
     def upsert(self, record: Record):
         if record.platform == 'aws' and self.aws_client:
-            print(f'INFO: Upsert record {record.__dict__}')
+            self.aws_client.dns.upsert_record(record)
         elif record.platform == 'gcp' and self.gcp_client:
-            print(f'INFO: Upsert record {record.__dict__}')
+            self.gcp_client.dns.upsert_record(record)
         else:
-            print(f'ERROR: Problem processing record {record.__dict__}')
+            print(f'ERROR: Invalid Platform.')
             raise Exception
 
     def remove(self, record: Record):
         if record.platform == 'aws' and self.aws_client:
-            print(f'INFO: Remove record {record.__dict__}')
+            self.aws_client.dns.remove_record(record)
         elif record.platform == 'gcp' and self.gcp_client:
-            print(f'INFO: Remove record {record.__dict__}')
+            self.gcp_client.dns.remove_record(record)
         else:
             print(f'ERROR: Problem processing record {record.__dict__}')
             raise Exception
