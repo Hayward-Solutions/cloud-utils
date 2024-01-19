@@ -23,3 +23,10 @@ print('Instances')
 instances = cloud.compute.instances()
 for instance in instances:
     print(instance.__dict__)
+
+print('Zones')
+for zone in cloud.dns.zones():
+    print(zone.__dict__)
+
+    for record in cloud.dns.records(zone_name=zone.name):
+        print(record.__dict__)
