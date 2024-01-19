@@ -21,8 +21,8 @@ class Compute:
         groups = []
         for asg in response['AutoScalingGroups']:
             groups.append(InstanceGroup(
-                name=asg['AutoScalingGroupName'],
                 platform='AWS',
+                name=asg['AutoScalingGroupName'],
                 size=asg['DesiredCapacity'],
                 instance_ids=[instance['InstanceId'] for instance in asg['Instances']]
             ))

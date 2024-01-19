@@ -19,9 +19,9 @@ class Dns:
         for zone in response['HostedZones']:
             if zone_name is None or zone['Name'] == zone_name:
                 zones.append(Zone(
-                    platform='aws',
+                    platform='AWS',
                     name=zone['Name'],
-                    id=zone['Id'].split('/')[-1],
+                    zone_id=zone['Id'].split('/')[-1],
                     record_count=zone['ResourceRecordSetCount']
                 ))
 
@@ -34,7 +34,7 @@ class Dns:
             # This is allowed to fail, as we might look up a Zone in GCP using the AWS API
             return []
         else:
-            zone_id = zones[0].id
+            zone_id = zones[0].zone_id
 
         response = route53.list_resource_record_sets(
             HostedZoneId=zone_id
@@ -43,11 +43,11 @@ class Dns:
         records = []
         for record in response['ResourceRecordSets']:
             records.append(Record(
-                platform='aws',
+                platform='AWS',
                 name=record['Name'],
-                zone=zone_id,
+                zone_id=zone_id,
                 record_type=record['Type'],
-                ttl=None if 'TTL' not in record else record['TTL'],
+                ttl=record['TTL'],
                 records=[target['Value'] for target in record['ResourceRecords']]
             ))
 
@@ -56,7 +56,7 @@ class Dns:
     def upsert_record(self, record: Record):
         route53 = boto_client(self.session, 'route53')
         route53.change_resource_record_sets(
-            HostedZoneId=record.zone,
+            HostedZoneId=record.zone_id,
             ChangeBatch={
                 'Changes': [{
                     'Action': 'UPSERT',
@@ -73,7 +73,7 @@ class Dns:
     def remove_record(self, record: Record):
         route53 = boto_client(self.session, 'route53')
         route53.change_resource_record_sets(
-            HostedZoneId=record.zone,
+            HostedZoneId=record.zone_id,
             ChangeBatch={
                 'Changes': [{
                     'Action': 'DELETE',

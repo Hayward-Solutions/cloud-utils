@@ -37,17 +37,17 @@ class InstanceGroup:
     Describes a cloud-agnostic Instance of a Group of Instances.
     This could be an AWS AutoScaling Group or GCP Managed Instance Group
     """
-    name: str
     platform: str
+    name: str
     size: int
     instance_ids: [str]
 
     def __init__(self,
-                 name: str,
                  platform: str,
+                 name: str,
                  size: int,
                  instance_ids: [str]):
-        self.name = name
         self.platform = platform
+        self.name = name
         self.size = size
         self.instance_ids = instance_ids

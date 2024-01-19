@@ -5,7 +5,7 @@ from cloud_utils.interfaces import compute
 from cloud_utils.interfaces import dns
 
 
-class Client:
+class Cloud:
     """
     Describes a single client to interact with environments distributed across multiple cloud providers.
     """

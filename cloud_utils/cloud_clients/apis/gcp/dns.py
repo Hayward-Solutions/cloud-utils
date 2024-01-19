@@ -18,9 +18,9 @@ class Dns:
         for zone in client.list_zones():
             if zone_name is None or zone_name == zone.dns_name:
                 zones.append(Zone(
-                    platform='gcp',
+                    platform='GCP',
                     name=zone.dns_name,
-                    id=zone.name,
+                    zone_id=zone.name,
                     record_count=len([record for record in zone.list_resource_record_sets()])
                 ))
         return zones
@@ -36,14 +36,14 @@ class Dns:
             zone = zones[0]
 
         records = []
-        for record in client.zone(name=zone.id, dns_name=zone_name).list_resource_record_sets():
+        for record in client.zone(name=zone.zone_id, dns_name=zone_name).list_resource_record_sets():
             records.append(Record(
-                platform='gcp',
+                platform='GCP',
                 name=record.name,
                 record_type=record.record_type,
                 ttl=record.ttl,
                 records=record.rrdatas,
-                zone=record.zone.name
+                zone_id=record.zone.name
             ))
 
         return records
@@ -56,7 +56,7 @@ class Dns:
         """
 
         client = dns.Client(project=self.project)
-        zone = client.zone(record.zone)
+        zone = client.zone(record.zone_id)
         change_batch = zone.changes()
 
         existing_records = zone.list_resource_record_sets()
@@ -78,7 +78,7 @@ class Dns:
 
     def remove_record(self, record: Record):
         client = dns.Client(project=self.project)
-        zone = client.zone(record.zone)
+        zone = client.zone(record.zone_id)
         change_batch = zone.changes()
 
         old_record = zone.resource_record_set(
