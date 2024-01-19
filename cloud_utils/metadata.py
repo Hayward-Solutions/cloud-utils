@@ -73,7 +73,7 @@ class Metadata:
         if platform.lower() == 'aws':
 
             base_url = 'http://169.254.169.254/latest/meta-data/'
-
+            self.project_id = ''
             self.platform = 'aws'
             self.instance_id = self.get(f'{base_url}/instance-id')
             self.instance_name = self.get(f'{base_url}/')
