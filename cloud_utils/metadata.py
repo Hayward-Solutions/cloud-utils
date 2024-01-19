@@ -24,9 +24,11 @@ class Metadata:
             headers = {'Metadata-Flavor': 'Google'}
         else:
             headers = {}
-        try:
-            return requests.get(url, headers=headers).text
-        except Exception:
+
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.text
+        else:
             return ''
 
     @staticmethod
