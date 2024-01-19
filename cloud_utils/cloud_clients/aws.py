@@ -24,7 +24,7 @@ class AWS:
         self.region = region
 
         if load_host_credentials:
-            self.session = boto3.session.Session()
+            self.session = boto3.session.Session(region_name=region)
         elif profile or all([access_key, secret_key, session_token]):
             self.session = boto3.session.Session(
                 profile_name=profile,
