@@ -3,6 +3,7 @@ from cloud_utils.static.locations import Locations
 from cloud_utils.cloud_clients import aws, gcp
 from cloud_utils.interfaces import compute
 from cloud_utils.interfaces import dns
+from cloud_utils.interfaces import storage
 
 
 class Cloud:
@@ -17,6 +18,7 @@ class Cloud:
 
     compute: compute.Compute
     dns: dns.DNS
+    storage: storage.Storage
 
     def __init__(self, location, platform,
                  aws_profile=None,
@@ -56,3 +58,4 @@ class Cloud:
 
         self.compute = compute.Compute(aws_client=self.aws, gcp_client=self.gcp)
         self.dns = dns.DNS(aws_client=self.aws, gcp_client=self.gcp)
+        self.storage = storage.Storage(aws_client=self.aws, gcp_client=self.gcp)

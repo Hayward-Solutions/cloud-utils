@@ -1,23 +1,25 @@
 
 from cloud_utils.client import Cloud
-from cloud_utils.metadata import Metadata
+from cloud_utils.types.storage import Blob
 
-metadata = Metadata()
-client = Cloud(
-    location=metadata.location,
-    platform=metadata.platform,
-    gcp_project=None if metadata.project_id == '' else metadata.project_id,
-    aws_load_default_credentials=True if metadata.platform == 'aws' else False
+
+cloud = Cloud(
+    location='london',
+    platform='gcp',
+    gcp_project='hs-nonprod',
+    aws_profile='hs-nonprod'
 )
 
-environment = metadata.tags['Environment']
+bucket = cloud.storage.buckets('hs-nonprod-nginx')[0]
+new_blob = Blob(
+    platform=bucket.platform,
+    bucket=bucket.name,
+    key='test',
+)
 
-for zone in client.dns.zones():
-    records = client.dns.records(zone_name=zone.name)
-    for record in records:
-        print(record.__dict__)
+cloud.storage.delete(new_blob)
 
-for group in client.compute.groups():
-    print(group.__dict__)
+for blob in cloud.storage.blobs(bucket.name):
+    print(blob.key)
 
 print('Done')

@@ -1,10 +1,7 @@
-from cloud_utils.types.compute import InstanceGroup
-from cloud_utils.types.compute import Instance
-from cloud_utils.types.dns import Zone
-from cloud_utils.types.dns import Record
 
 from cloud_utils.cloud_clients.apis.gcp.compute import Compute
 from cloud_utils.cloud_clients.apis.gcp.dns import Dns
+from cloud_utils.cloud_clients.apis.gcp.storage import Storage
 
 
 class GCP:
@@ -12,6 +9,7 @@ class GCP:
     region: str
     compute: Compute
     dns: Dns
+    storage: Storage
 
     def __init__(self, project: str, region: str):
         self.project = project
@@ -19,3 +17,4 @@ class GCP:
 
         self.compute = Compute(project=project, region=region)
         self.dns = Dns(project=project, region=region)
+        self.storage = Storage(project=project)

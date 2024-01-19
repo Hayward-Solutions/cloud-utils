@@ -3,6 +3,7 @@ import botocore.exceptions
 
 from cloud_utils.cloud_clients.apis.aws.compute import Compute
 from cloud_utils.cloud_clients.apis.aws.dns import Dns
+from cloud_utils.cloud_clients.apis.aws.storage import Storage
 
 
 class AWS:
@@ -11,6 +12,7 @@ class AWS:
 
     dns = Dns
     compute = Compute
+    storage = Storage
 
     def __init__(self,
                  region: str,
@@ -58,3 +60,4 @@ class AWS:
 
         self.compute = Compute(self.session)
         self.dns = Dns(self.session)
+        self.storage = Storage(self.session)
