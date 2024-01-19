@@ -5,16 +5,16 @@ from cloud_utils.types.storage import Blob
 
 cloud = Cloud(
     location='london',
-    platform='gcp',
+    platform='aws',
     gcp_project='hs-nonprod',
     aws_profile='hs-nonprod'
 )
 
-bucket = cloud.storage.buckets('hs-nonprod-nginx')[0]
+bucket = cloud.storage.buckets('hs-nonprod-terraform')[0]
 new_blob = Blob(
     platform=bucket.platform,
     bucket=bucket.name,
-    key='test',
+    key='test'
 )
 
 cloud.storage.delete(new_blob)
