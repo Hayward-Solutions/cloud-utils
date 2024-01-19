@@ -79,6 +79,7 @@ class Metadata:
             self.platform = 'aws'
             self.instance_id = self.get(f'{base_url}/instance-id')
             self.instance_name = self.get(f'{base_url}/tags/instance/Name')
+            self.group_name = self.get(f'{base_url}/tags/instance/aws:autoscaling:groupName')
             self.zone = self.get(f'{base_url}/placement/availability-zone')
             self.region = self.zone[:-1]
             self.private_ip = self.get(f'{base_url}/local-ipv4')
