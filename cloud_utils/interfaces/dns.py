@@ -56,5 +56,5 @@ class DNS:
         elif record.platform == 'gcp' and self.gcp_client:
             self.gcp_client.dns.remove_record(record)
         else:
-            print(f'ERROR: Problem processing record {record.__dict__}')
+            print(f'ERROR: Invalid Platform')
             raise Exception

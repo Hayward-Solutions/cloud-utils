@@ -29,11 +29,12 @@ class Dns:
 
     def get_records(self, zone_name: str) -> [Record]:
         route53 = boto_client(self.session, 'route53')
-        try:
-            zone_id = self.get_zones(zone_name=zone_name)[0].id
-        except IndexError:
-            print(f'ERROR: Zone {zone_name} not found.')
-            raise
+        zones = self.get_zones(zone_name=zone_name)
+        if len(zones) == 0:
+            # This is allowed to fail, as we might look up a Zone in GCP using the AWS API
+            return []
+        else:
+            zone_id = zones[0].id
 
         response = route53.list_resource_record_sets(
             HostedZoneId=zone_id
