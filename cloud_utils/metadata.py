@@ -78,12 +78,12 @@ class Metadata:
             self.project_id = ''
             self.platform = 'aws'
             self.instance_id = self.get(f'{base_url}/instance-id')
-            self.instance_name = self.get(f'{base_url}/')
+            self.instance_name = self.get(f'{base_url}/tags/instance/Name')
             self.zone = self.get(f'{base_url}/placement/availability-zone')
             self.region = self.zone[:-1]
             self.private_ip = self.get(f'{base_url}/local-ipv4')
             self.public_ip = self.get(f'{base_url}/public-ipv4')
-            self.machine_type = self.get(f'{base_url}/')
+            self.machine_type = self.get(f'{base_url}/instance-type')
             self.tags = {}
             for tag in self.get(f'{base_url}/tags/instance/').split('\n'):
                 self.tags[tag] = self.get(f'{base_url}/tags/instance/{tag}')
