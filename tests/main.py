@@ -1,13 +1,16 @@
 
 from cloud_utils.client import Cloud
-from cloud_utils.types.dns import Record
+from cloud_utils.metadata import Metadata
 
+metadata = Metadata()
 client = Cloud(
-    location='london',
-    platform='all',
-    gcp_project='hs-nonprod',
-    aws_profile='hs-nonprod'
+    location=metadata.location,
+    platform=metadata.platform,
+    gcp_project=None if metadata.project_id == '' else metadata.project_id,
+    aws_load_default_credentials=True if metadata.platform == 'aws' else False
 )
+
+environment = metadata.tags['Environment']
 
 for zone in client.dns.zones():
     records = client.dns.records(zone_name=zone.name)
