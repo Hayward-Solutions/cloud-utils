@@ -22,6 +22,10 @@ class Record:
 
     def __init__(self, platform: str, name: str, zone_id: str, record_type: str, records: [str], ttl: int):
         self.platform = platform
+
+        if platform == 'gcp' and name[-1] != '.':
+            name = name + '.'
+
         self.name = name
         self.zone_id = zone_id
         self.record_type = record_type
