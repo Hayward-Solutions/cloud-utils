@@ -9,9 +9,9 @@ pip3 install --trusted-host gitlab.devmagic.cloud --index-url https://gitlab.dev
 ```
 
 ```python
-from cloud_utils.client import Client
+from cloud_utils.client import Cloud
 
-many_clouds = Client(
+many_clouds = Cloud(
     location='london',
     platform='all',
     aws_profile='dev-profile',
@@ -23,7 +23,7 @@ for instance in all_instances:
     print(instance.platform)
     print(instance.private_ip)
 
-aws_cloud = Client(
+aws_cloud = Cloud(
     location='ireland',
     platform='aws',
     aws_profile='production'
@@ -57,7 +57,7 @@ git push origin 0.0.0
 ## Use Cloud-Utils in another Poetry Project
 
 ```commandline
-poetry source add cloud-utils --priority explicit --repository https://gitlab.devmagic.cloud/api/v4/projects/6/packages/pypi/simple
+poetry source add cloud-utils --priority explicit https://gitlab.devmagic.cloud/api/v4/projects/6/packages/pypi/simple
 poetry config certificates.cloud-utils.cert false
 poetry add cloud-utils --source cloud-utils
 ```

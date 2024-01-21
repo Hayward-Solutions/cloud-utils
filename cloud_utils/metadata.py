@@ -98,8 +98,8 @@ class Metadata:
             self.instance_id = self.get(f'{base_url}/instance/id', google=True)
             self.instance_name = self.get(f'{base_url}/instance/name', google=True)
             self.group_name = self.get(f'{base_url}/instance/attributes/created-by', google=True)
-            self.zone = self.get(f'{base_url}/instance/zone', google=True)
-            self.region = self.zone.split('/')[-1]
+            self.zone = self.get(f'{base_url}/instance/zone', google=True).split('/')[-1]
+            self.region = self.zone[:-2]
             self.private_ip = self.get(f'{base_url}/instance/network-interfaces/0/ip', google=True)
             self.public_ip = self.get(f'{base_url}/instance/network-interfaces/0/access-configs/0/external-ip', google=True)
             self.machine_type = self.get(f'{base_url}/instance/machine-type', google=True).split('/')[-1]
