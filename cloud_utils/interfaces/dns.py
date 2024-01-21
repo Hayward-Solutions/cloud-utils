@@ -42,18 +42,18 @@ class DNS:
         return records
 
     def upsert(self, record: Record):
-        if record.platform == 'AWS' and self.aws_client:
+        if record.platform.lower() == 'aws' and self.aws_client:
             self.aws_client.dns.upsert_record(record)
-        elif record.platform == 'GCP' and self.gcp_client:
+        elif record.platform.lower() == 'gcp' and self.gcp_client:
             self.gcp_client.dns.upsert_record(record)
         else:
             print(f'ERROR: Invalid Platform.')
             raise Exception
 
     def remove(self, record: Record):
-        if record.platform == 'AWS' and self.aws_client:
+        if record.platform.lower() == 'aws' and self.aws_client:
             self.aws_client.dns.remove_record(record)
-        elif record.platform == 'GCP' and self.gcp_client:
+        elif record.platform.lower() == 'gcp' and self.gcp_client:
             self.gcp_client.dns.remove_record(record)
         else:
             print(f'ERROR: Invalid Platform')
