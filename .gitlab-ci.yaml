@@ -26,7 +26,7 @@ build:
 
 push:
   stage: push
-  image: awscli
+  image: amazon/aws-cli:latest
   needs:
     - build
   script:
