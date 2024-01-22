@@ -2,6 +2,7 @@ image: alpine:latest
 
 stages:
   - build
+  - push
 
 build:
   stage: build
