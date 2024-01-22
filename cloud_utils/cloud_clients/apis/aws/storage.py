@@ -37,7 +37,10 @@ class Storage:
                 ))
         except botocore.exceptions.ClientError:
             return []
-        return blobs
+        except KeyError:
+            return []
+        else:
+            return blobs
 
     def upload(self, blob: Blob):
         s3 = boto_client(self.session, 's3')
