@@ -26,8 +26,12 @@ build:
 
 push:
   stage: push
-  image: amazon/aws-cli:latest
   needs:
     - build
+  image:
+    name: "amazon/aws-cli:latest"
+    entrypoint:
+      - "/bin/sh"
+      - "-c"
   script:
     - s3 cp --recursive .dist/ s3://hs-core-packages/cloud_utils/$CI_COMMIT_TAG/
