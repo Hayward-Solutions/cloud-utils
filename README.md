@@ -58,6 +58,5 @@ git push origin 0.0.0
 
 ```commandline
 poetry source add cloud-utils --priority explicit https://gitlab.devmagic.cloud/api/v4/projects/6/packages/pypi/simple
-poetry config certificates.cloud-utils.cert false
 poetry add cloud-utils --source cloud-utils
 ```
