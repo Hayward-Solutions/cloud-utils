@@ -36,7 +36,9 @@ class Storage:
                     bucket=bucket_name
                 ))
         except botocore.exceptions.ClientError:
-            return []
+            raise 'Client Error'
+        except botocore.exceptions.SSLError:
+            raise 'SSL Error'
         except KeyError:
             return []
         else:
