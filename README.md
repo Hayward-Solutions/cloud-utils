@@ -5,7 +5,7 @@ Cloud-Utils aims to provide a single interface for interacting with multiple clo
 ## Getting Started
 
 ```commandline
-pip3 install --index-url cloud-utils
+pip3 install cloud-utils
 ```
 
 ```python
